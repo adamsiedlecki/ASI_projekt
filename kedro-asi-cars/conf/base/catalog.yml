@@ -57,3 +57,7 @@ car_prices_with_mileage_per_years:
   load_args:
     encoding: windows-1250
 
+model_autogluon:
+  type: kedro_datasets.pickle.PickleDataset
+  filepath: data/06_models/autogluon_model.pkl
+
