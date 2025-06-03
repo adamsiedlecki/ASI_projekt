@@ -12,7 +12,7 @@ def create_pipeline(**kwargs) -> Pipeline:
     return pipeline([
         node(
             func=train_model,
-            inputs=dict(train_data="car_prices_with_mileage_per_years", target_column="params:price"),
+            inputs=dict(train_data="car_prices_with_mileage_per_years"),
             outputs="model_autogluon",
             name="train_autogluon_model"
         )
