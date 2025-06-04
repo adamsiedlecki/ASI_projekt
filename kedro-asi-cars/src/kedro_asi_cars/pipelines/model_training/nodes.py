@@ -4,13 +4,19 @@ generated using Kedro 0.19.12
 """
 
 
-from autogluon.tabular import TabularPredictor
+from pycaret.regression import setup, compare_models, pull, save_model
 
 
-def train_model(train_data) -> TabularPredictor:
-    target_column = 'price'
-    predictor = TabularPredictor(label=target_column, path='data/06_models/AutogluonModels').fit(train_data,
-        hyperparameters={
-            "FASTAI": {}
-        })
-    return predictor
+def train_model(train_data):
+    # Initialize the PyCaret environment
+    setup(data=train_data, target='price')
+
+    # Train and evaluate multiple models
+    best_model = compare_models(include=['lr', 'ridge', 'lasso', 'rf'])
+
+    # Optionally, pull and log comparison results
+    comparison_results = pull()
+    print(comparison_results)  # or use logging
+    save_model(best_model, 'data/06_models/best_price_model')
+
+    return best_model

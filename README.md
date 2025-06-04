@@ -4,15 +4,15 @@
 
 Zbudowanie kontenera z kedro (ze względu na zależności długotrwałe, u mnie za pierwyszym razem prawie 1h, potem cache dockera skraca czas): 
 ```cmd
-docker build . -t asi
+docker build . -t kedro
 ```
 
 Uruchomienie kontnera z kedro na windows (${PWD} powinno działać w powershellu)
 ```cmd
-docker run -p 4141 -v ${PWD}\kedro-asi-cars\data:/app/data asi
+docker run -p 4141 -it -v ${PWD}\:/app/ kedro
 ```
 
-Po uruchomieniu rozpoczyna się kedro run && kedro viz, czyli po pełnym przebiegu powinniśmy móc zobaczyć pipeline
+Po uruchomieniu otwiera się konsola, można zrobić kedro run && kedro viz, czyli po pełnym przebiegu powinniśmy móc zobaczyć pipeline
 pod adresem http://localhost:4141
 
 

@@ -13,7 +13,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         node(
             func=train_model,
             inputs=dict(train_data="car_prices_with_mileage_per_years"),
-            outputs="model_autogluon",
-            name="train_autogluon_model"
+            outputs="best_model",
+            name="train_model"
         )
     ])

@@ -1,11 +1,12 @@
 ipython>=8.10
 jupyterlab>=3.0
-kedro-datasets[pandas-csvdataset, pandas-exceldataset]>=3.0
+kedro-datasets[pandas-csvdataset, pandas-exceldataset]>=3.0.0
 kedro-viz>=6.7.0
-kedro[jupyter]~=0.19.12
+kedro[jupyter]==0.19.13
+pycaret==3.3.2
 notebook
-scikit-learn==1.2.2
+# scikit-learn==1.2.2
 seaborn~=0.12.1
 # setuptools; python_version >= "3.12"
-autogluon==0.8.2
+pyspark
 graphviz==0.20.1

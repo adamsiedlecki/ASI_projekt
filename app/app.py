@@ -1,13 +1,10 @@
 from datetime import datetime
 
 import streamlit as st
-import os
-from autogluon.tabular import TabularPredictor
 import pandas as pd
+from pycaret.classification import load_model, predict_model
 
-
-model_path = 'AutogluonModels/ag-20250604_134856'
-predictor = TabularPredictor.load(model_path)
+ai_model = load_model('best_price_model')
 
 current_year = datetime.now().year
 
@@ -52,5 +49,7 @@ if st.button("Oblicz"):
         "age_years": age_years,
         "mileage_per_year": mileage_per_year
     }])
-    prediction = predictor.predict(input_df)
-    st.success(f"Predykcja: {prediction}")
+    prediction = predict_model(ai_model, data=input_df)
+    # st.write(f"Predication: {prediction}")
+    predicted_price = prediction.loc[0, 'prediction_label']
+    st.success(f"Predykcja: {predicted_price} zł")

@@ -9,18 +9,16 @@ RUN apt-get update && apt-get install -y python3 && apt-get install -y pip && ap
 WORKDIR /app
 
 # Skopiuj tylko pliki zależności (dla lepszego cache)
-COPY kedro-asi-cars/pyproject.toml kedro-asi-cars/requirements.txt* ./
+COPY pyproject.toml requirements.txt* ./
 
-# Zainstaluj Kedro i zależności (obsługuje Poetry/pip)
+# Zainstaluj Kedro i zależności
 RUN pip install --upgrade pip \
     && pip install kedro
 
 RUN pip install -r requirements.txt
 
-RUN pip install pyspark
-
 # Skopiuj cały projekt
-COPY kedro-asi-cars .
+COPY . .
 
 # Eksponuj port dla kedro viz
 EXPOSE 4141
