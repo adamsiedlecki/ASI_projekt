@@ -58,6 +58,6 @@ car_prices_with_mileage_per_years:
     encoding: utf8
 
 model_autogluon:
-  type: kedro_datasets.pickle.PickleDataset
-  filepath: data/06_models/autogluon_model.pkl
+  type: kedro_asi_cars.datasets.autogluon_tabular_predictor_dataset.AutoGluonTabularPredictorDataSet
+  filepath: data/06_models/autogluon_predictor
 

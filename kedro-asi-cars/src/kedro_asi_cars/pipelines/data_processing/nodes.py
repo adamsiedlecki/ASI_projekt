@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 
 
@@ -9,6 +10,8 @@ def generate_age_feature(df: pd.DataFrame) -> pd.DataFrame:
 
 def generate_mileage_per_year_feature(df: pd.DataFrame) -> pd.DataFrame:
     df['mileage_per_year'] = df['mileage'] / df['age_years']
+
+    df = df.replace([np.inf, -np.inf], np.nan).dropna()
     return df
 
 def deleteOutliers(df: pd.DataFrame) -> pd.DataFrame:

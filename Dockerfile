@@ -26,6 +26,8 @@ COPY kedro-asi-cars .
 EXPOSE 4141
 
 # Domyślny shell
-# CMD ["/bin/bash"]
+ CMD ["/bin/bash"]
 
-CMD ["sh", "-c", "kedro run && kedro viz"]
+#CMD ["sh", "-c", "kedro run && /bin/bash"]
+
+# && kedro viz
