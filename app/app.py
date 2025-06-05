@@ -2,7 +2,7 @@ from datetime import datetime
 
 import streamlit as st
 import pandas as pd
-from pycaret.classification import load_model, predict_model
+from pycaret.regression import load_model, predict_model
 
 ai_model = load_model('best_model_with_pipeline')
 
