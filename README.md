@@ -9,7 +9,7 @@ docker build . -t kedro
 
 Uruchomienie kontnera z kedro na windows (${PWD} powinno działać w powershellu)
 ```cmd
-docker run -p 4141 -it -v ${PWD}\:/app/ kedro
+docker run -p 4141:4141 -it -v ${PWD}\:/app/ kedro
 ```
 
 Po uruchomieniu otwiera się konsola, można zrobić kedro run && kedro viz, czyli po pełnym przebiegu powinniśmy móc zobaczyć pipeline
