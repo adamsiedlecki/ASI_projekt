@@ -16,7 +16,7 @@ def train_model(train_data):
         'lr',        # Linear Regression (baseline)
         'ridge',     # Regularized linear model (L2)
         # 'lightgbm',  # Gradient boosting, fast and accurate
-        # 'mlp',       # Perceptron wielowarstwowy
+        'mlp',       # Perceptron wielowarstwowy
     ])
 
     # Optionally, pull and log comparison results

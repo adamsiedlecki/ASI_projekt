@@ -6,7 +6,8 @@ from .nodes import (
     deleteOutliers,
     deleteUnimportantColumns,
     deleteGeneration,
-    deleteYear
+    deleteYear,
+    makeModelLowercase
 )
 
 
@@ -25,6 +26,12 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs="car_prices_without_generation",
                 name="deleteGeneration",
             ),
+            node(
+                func=makeModelLowercase,
+                inputs="car_prices_without_generation",
+                outputs="car_prices_model_lowercase",
+                name="modelLowercase",
+            ),
             # node(
             #     func=deleteOutliers,
             #     inputs="car_prices_without_generation",
@@ -33,7 +40,7 @@ def create_pipeline(**kwargs) -> Pipeline:
             # ),
             node(
                 func=generate_age_feature,
-                inputs="car_prices_without_generation",
+                inputs="car_prices_model_lowercase",
                 outputs="car_prices_with_age",
                 name="generate_age_of_cars",
             ),

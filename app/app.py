@@ -36,7 +36,7 @@ st.number_input("Średni przebieg roczny (km)", value=round(mileage_per_year, 2)
 if st.button("Oblicz"):
     input_df = pd.DataFrame([{
         "mark": mark,
-        "model": model,
+        "model": model.lower(),
         "year": year,
         "mileage": mileage,
         "vol_engine": vol_engine,

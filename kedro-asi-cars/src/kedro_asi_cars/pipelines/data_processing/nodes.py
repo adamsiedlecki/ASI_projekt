@@ -27,6 +27,10 @@ def deleteUnimportantColumns(df: pd.DataFrame) -> pd.DataFrame:
     df = df.drop(columns=['city'])
     return df
 
+def makeModelLowercase(df: pd.DataFrame) -> pd.DataFrame:
+    df['model'] = df['model'].str.lower()
+    return df
+
 def deleteGeneration(df: pd.DataFrame) -> pd.DataFrame:
     df = df.drop(columns=['generation_name'])
     return df
