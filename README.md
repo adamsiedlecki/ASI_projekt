@@ -15,6 +15,8 @@ docker run -p 4141 -it -v ${PWD}\:/app/ kedro
 Po uruchomieniu otwiera się konsola, można zrobić kedro run && kedro viz, czyli po pełnym przebiegu powinniśmy móc zobaczyć pipeline
 pod adresem http://localhost:4141
 
+Po kedro run w data/06_models powinien pojawić się plik best_model_with_pipeline.pkl
+Należy go umieścić w folderze app
 
 ## Część aplikacyjna
 
