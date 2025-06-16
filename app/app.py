@@ -11,14 +11,14 @@ current_year = datetime.now().year
 st.title("Predykcja cen samochodów")
 
 mark = st.selectbox("Marka", [
-    "opel", "audi", "bmw", "volkswagen", "ford", "mercedes-benz", "renault", "toyota", "skoda", "alfa-romeo",
+    "audi", "opel", "bmw", "volkswagen", "ford", "mercedes-benz", "renault", "toyota", "skoda", "alfa-romeo",
     "chevrolet", "citroen", "fiat", "honda", "hyundai", "kia", "mazda", "mini", "mitsubishi", "nissan",
     "peugeot", "seat", "volvo"
 ])
-model = st.text_input("Model")
-year = st.slider("Rok produkcji", min_value=1971, max_value=2022, value=2015)
-mileage = st.number_input("Przebieg (km)", min_value=1, max_value=2800000, value=100000, step=1000)
-vol_engine = st.number_input("Pojemność silnika (cm³)", min_value=850, max_value=2796, value=1248, step=1)
+model = st.text_input("Model", value='a3')
+year = st.slider("Rok produkcji", min_value=1971, max_value=2022, value=2001)
+mileage = st.number_input("Przebieg (km)", min_value=1, max_value=2800000, value=280000, step=1000)
+vol_engine = st.number_input("Pojemność silnika (cm³)", min_value=850, max_value=7000, value=1900, step=1)
 fuel = st.selectbox("Rodzaj paliwa", [
     "Diesel", "CNG", "Gasoline", "LPG", "Hybrid", "Electric"
 ])
@@ -48,4 +48,8 @@ if st.button("Oblicz"):
     prediction = predict_model(ai_model, data=input_df)
     # st.write(f"Predication: {prediction}")
     predicted_price = prediction.loc[0, 'prediction_label']
-    st.success(f"Predykcja: {predicted_price} zł")
+    # st.success(f"Predykcja: {prediction}")
+    st.success(f"Najbardziej prawdopodobny wynik: {predicted_price:.2f} zł")
+    min = predicted_price * 0.95
+    max = predicted_price * 1.05
+    st.success(f"Przedział (0.95 - 1.05): {min:.2f} - {max:.2f} zł")
