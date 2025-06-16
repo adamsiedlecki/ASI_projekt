@@ -4,6 +4,11 @@ Autorzy:
 - Bartłomiej Małek
 - Adam Siedlecki s25300
 
+Linki: 
+- GitHub https://github.com/adamsiedlecki/ASI_projekt
+- Demo można zobaczyć tutaj: https://asi.cars.asiedlecki.net/
+(wdrożone na własnym serwerze, który jest czasami restartowany więc może się zdarzyć że jest niedostępne)
+
 ### Opis problemu
 
 #### Krótki opis problemu i jego kontekstu (branża, otoczenie, etc.)
@@ -30,6 +35,8 @@ Ponieważ ma realne zastosowanie i łatwo sobie zwizualizować potencjalnego uż
 Źródłem danych jest zbiór z Kaggle https://www.kaggle.com/datasets/aleksandrglotov/car-prices-poland.
 Dane pochodzą z "dobrze znanego serwisu", pozyskane poprzez scraping czyli najpewniej otomoto bądź olx. 
 Są wiarygodne, chociaż należy pamiętać, że to ceny ofertowe, a nie transakcyjne.
+Co więcej, pochodzą z 2022 roku, więc minęło już trochę czasu i realia rynkowe się zmieniły.
+Aby taki model był użyteczny, musiałby być trenowany na bieżąco nowymi danymi.
 
 #### Krótka analiza opisowa danych
 
@@ -53,6 +60,14 @@ Dodatkowo wpływ może mieć też miejsce oferty, chociaż nierzadko ludzie poko
 ### Sposób rozwiązania problemu
 
 Aby utworzyć model, został utworzony projekt w kedro.
+
+Został zrobiony preprocessing, w wyniku którego zostały usunięte niektóre kolumny, nazwa
+modelu pojazdu została znormalizowana do lowercase, zostały utworzone nowe zmienne, takie jak wiek
+oraz średnioroczny przebieg. Została podjęta też próba usunięcia outlierów, choć nie miała zbyt dużego wpływu.
+
+Do uczenia został wykorzystany pycaret. Wyprodukowany przez niego model został uruchomiony w aplikacji
+napisanej przy użyciu streamlita. Aplikacja podaje nie tylko przewidzianą wartość ceny, ale 
+także przedział 0.95 * cena - 1.05 * cena.
 
 #### Krótki opis wybranego modelu wraz z uzasadnieniem
 #### Etapy realizacji projektu
