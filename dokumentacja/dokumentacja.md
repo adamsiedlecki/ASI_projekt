@@ -70,15 +70,60 @@ napisanej przy użyciu streamlita. Aplikacja podaje nie tylko przewidzianą wart
 także przedział 0.95 * cena - 1.05 * cena.
 
 #### Krótki opis wybranego modelu wraz z uzasadnieniem
+
+TODO
+
 #### Etapy realizacji projektu
+
+1. Utworzenie projektu w kedro
+2. Preprocessing, utworzenie dodatkowych zmiennych
+3. Próba wpasowania autogluona w kedro.
+4. Próba wpasowania pycaret w kedro.
+5. Dobór odpowiednich algorytmów w pycaret (niektóre powodowały bardzo długi czas uczenia i ciężkie modele - danych jest sporo)
+6. Zapis modelu w strukturze kedro
+7. Utworzenie aplikacji w streamlit i uruchomienie w jej ramach modelu
+8. Poprawki wyglądu aplikacji końcowej, prezentowanie przedziału cen, opcje do wyboru
+9. Wdrożenie aplikacji na własny serwer, z wykorzystaniem konfiguracji docker, ssl proxy, nadanie subdomeny https://asi.cars.asiedlecki.net/
+
 #### Miary ewaluacji (oceny jakości) modelu
+
+TODO
 
 ### Szczegółowy opis aplikacji
 #### Wykorzystane narzędzia, struktura, odwołania do ważniejszych części kodu
 
+TODO
 
 ### Podsumowanie
 
 #### Co się udało?
+
+Udało się z powodzeniem wykorzystać narzędzia poruszane i wspomniane na zajęciach,
+takie jak kedro (pipeline, wizualizacja) pycaret (uczenie modelu), streamlit (integrowanie modelu w aplikację webową).
+
+Ponadto wytworzony model został wdrożony na serwer i jest widoczny publicznie z internetu.
+
 #### Jakie były problemy? Jak je rozwiązaliśmy?
+
+1. Dane nie są aktualne. Aby uzyskiwać lepsze wyniki, należałoby regularne scrapować dane z internetu i trenować
+model na najbardziej aktualnych danych. Jeszcze lepszym pomysłem byłoby pozyskanie danych transakcyjnych, ale to wymagałoby
+integracji z jednostkami rządowymi (może Urząd Skarbowy?). Ta kwestia została rozwiązana poprzez pogodzenie się z jakością danych jakie mamy.
+2. Autogluon posiada zależności które utrudniają integrację z kedro.
+Straciłem dużo czasu na próbie ich pogodzenia (wolny internet miał w tym swój udział). Problem został rozwiązany
+poprzez zastosowanie pycareta.
+3. Pycaret domyślnie próbuje uczyć wieloma algorytmami, co jest niewydajne dla dużego datasetu. Została ograniczona 
+lista używanych algorytmów, co przyspieszyło proces.
+4. Problem z zapisem modelu zgodnie z 'flow' kedro. Przekazanie z węzła treningowego kedro 'return best_model' nie jest tożsame
+z ręcznym zapisaniem 'save_model(best_model, 'data/06_models/best_model_with_pipeline')'. W przypadku ręcznego zapisania, zapisuje się pipeline,
+który jest potrzebny do uruchomienia modelu. Rozwiązaniem jest ręczne wołanie save_model.
+5. Problem z uruchomieniem aplikacji ze stramlitem w środowisku 'paraprodukcyjnym' - stosowanie oprogramowania ssl proxy
+powodowało pierwotnie problem, ponieważ funkcjonalność websocketów była w nim domyślnie wyłączona. Okazało się,
+że streamlit ją wykorzystuje i trzeba było ją włączyć.
+
 #### W jaki sposób może być to wykorzystane/rozwinięte w przyszłości?
+
+Aplikację można rozwinąć, stosując zautomatyzowany system dostarczania danych, który mógłby działać w następujący sposób:
+- scraper zbiera nowe dane i dodaje do datasetu
+- stare dane są usuwane z datasetu
+- model jest uczony (np. codziennie, albo co 10k nowych rekordów)
+- po uczeniu jakiś mechanizm, np Jenkins wrzuca nowy model do odpowiedniego katalogu, przebudowuje kontener z aplikacją streamlit, uruchamia ją ponownie
