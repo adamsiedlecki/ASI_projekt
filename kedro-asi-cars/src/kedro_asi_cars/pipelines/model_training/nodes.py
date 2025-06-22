@@ -22,6 +22,7 @@ def train_model(train_data):
     # Optionally, pull and log comparison results
     comparison_results = pull()
     print(comparison_results)  # or use logging
+    print(best_model)
     save_model(best_model, 'data/06_models/best_model_with_pipeline')
 
     return best_model

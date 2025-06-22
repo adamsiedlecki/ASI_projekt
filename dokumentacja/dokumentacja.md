@@ -71,7 +71,11 @@ także przedział 0.95 * cena - 1.05 * cena.
 
 #### Krótki opis wybranego modelu wraz z uzasadnieniem
 
-TODO
+Lista algorytmów, których ma uzywać pycaret, została drastycznie ograniczona do zaledwie 3 pozycji ze względu na duży czas uczenia i 
+rozmiar wynikowych modeli, co było kłopotliwe w developmencie. Pycaret dokonuje wyboru najlepszego modelu samodzielnie,
+więc nie było w tym dużego udziału człowieka. Wybrany model został utworzonly za pomocą algorytmu MLP, czyli perceptronu
+wielowarstwowego, w którym każdy neron w warstwie jest połączony z każdym w kolejnej. Gdyby projekt był wdrażany komercyjnie,
+należałoby użyć większej liczby algorytmów, i pogodzić się z rosnącym zapotrzebowaniem sprzętowym.
 
 #### Etapy realizacji projektu
 
@@ -87,12 +91,33 @@ TODO
 
 #### Miary ewaluacji (oceny jakości) modelu
 
-TODO
+Model MLP uzyskał MAE (średni błąd) na poziomie niemalże 16 tysięcy. To dosyć spora wartość, co świadczy o tym
+że wyniki prezentowane przez model nie będą idealne, szczególnie  w przypadku tańszych aut. W przypadku droższych być może będzie to mniej odczywalne.
+Wybrany model nie jest do końca wiarygodny, ale ze względu na brak czasu taki został wybrany.
+W miarę dobrze tłumaczy dane, o czym świadczy metryka R2 na poziomie 0.85.
+Ponadto trenował się dosyć szybko.
+
+```
+
+                   Model         MAE           MSE        RMSE      R2   RMSLE    MAPE  TT (Sec)
+mlp        MLP Regressor  15928.5091  1.056344e+09  32407.6079  0.8523  0.3343  0.2568     6.906
+lr     Linear Regression  25895.2852  1.895539e+09  43493.4063  0.7348  0.7978  0.7967     0.372
+ridge   Ridge Regression  25894.9028  1.895532e+09  43493.3240  0.7348  0.7975  0.7966     0.211
+
+```
+
+
 
 ### Szczegółowy opis aplikacji
+
 #### Wykorzystane narzędzia, struktura, odwołania do ważniejszych części kodu
 
-TODO
+W procesie developmentu użyto różnorodnych narzędzi, które były wymagane - kaggle do znalezienia zbioru danych, kedro do utworzenia pipelinu (folder kedro-asi-cars),
+pandas do wczytania i przygotowania danych, pycaret do uczenia. Nawet notatniki jupyter zostały użyte, i umieszczone w foilderze notebooks zgodnie
+ze strukturą kedro. Do zbudowania aplikacji został wykorzsytany streamlit (folder app). Docker został użyty, aby wyprodukować skonteneryzowane kedro,
+co okazało się niezwykle pomocne w problemie niezgodnych zależności. Aplikacja streamlitowa również została skonteneryzowana i w takiej formie wdrożona
+na prywatny serwer, na ktorym zgodnie z zaleceniami twórców streamlita została postawiona za SSL proxy.
+Jest to trochę obejście wymagania odnośnie wdrożenia na chmurę, co było trochę kłopotliwe i wiąże się z dotatkowymi kosztami.
 
 ### Podsumowanie
 
