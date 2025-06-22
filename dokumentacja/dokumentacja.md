@@ -1,7 +1,7 @@
 ## Dokumentacja - przywidywanie cen pojazdów
 
 Autorzy:
-- Bartłomiej Małek
+- Bartłomiej Małek s19366
 - Adam Siedlecki s25300
 
 Linki: 
